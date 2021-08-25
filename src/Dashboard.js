@@ -3,8 +3,8 @@ import Home from './Home';
 import axios from 'axios';
 
 
-const API_URL = 'https://assign-mentor-backend.herokuapp.com/studentcount';
-const API_URL1 = 'https://assign-mentor-backend.herokuapp.com/mentorcount';
+const API_URL = 'https://611f50dd9771bf001785c846.mockapi.io/Users';
+
 
 export default class dashboard extends Component {
 
@@ -12,31 +12,26 @@ export default class dashboard extends Component {
         super();
 
         this.state = {
-        mentor:'',
-        students:''
+        Users:'',
+        
 
         }
 
     }
 
     componentDidMount(){
-
-     this.getMentorCount();
-     this.getStudentCount();
-
+     this.getUserCount();    
     }
 
-    getMentorCount =  async () =>{
+    getUserCount = async () =>{
+     
+ const {data} =  await axios.get(API_URL);
 
-       const {data} = await axios.get(API_URL1);
-       this.setState({mentor :data });
+ var length = data.length;
+
+ this.setState({Users:length})
     }
-    getStudentCount = async () => {
-
-        const { data } = await axios.get(API_URL);
-        this.setState({students : data})
-    }
-
+  
     render(){
 
         return(
@@ -72,7 +67,7 @@ export default class dashboard extends Component {
     
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{this.state.students}</h3>
+                <h3>{this.state.Users}</h3>
     
                 <p>Users</p>
               </div>
